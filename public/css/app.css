@@ -10938,3 +10938,7 @@ body {
   direction: rtl;
 }
 
+.dropdown-item {
+  text-align: right;
+}
+

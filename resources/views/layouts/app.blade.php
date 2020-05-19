@@ -85,7 +85,7 @@
                           مطالب
                       </a>
 
-                      <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
+                      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="#">لیست مطالب</a>
                         <a class="dropdown-item" href="#">ثبت مطلب</a>
                         <a class="dropdown-item" href="#">ویرایش مطلب</a>
