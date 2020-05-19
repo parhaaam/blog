@@ -14,7 +14,7 @@ class TagController extends Controller
      */
     public function index()
     {
-        //
+        return View('tag.index');
     }
 
     /**
@@ -24,7 +24,7 @@ class TagController extends Controller
      */
     public function create()
     {
-        //
+      return View('tag.create');
     }
 
     /**
@@ -46,7 +46,6 @@ class TagController extends Controller
      */
     public function show(Tag $tag)
     {
-        //
     }
 
     /**
@@ -55,9 +54,9 @@ class TagController extends Controller
      * @param  \App\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function edit(Tag $tag)
+    public function edit()
     {
-        //
+      return View('tag.create');
     }
 
     /**

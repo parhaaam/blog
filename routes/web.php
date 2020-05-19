@@ -29,4 +29,9 @@ Route::group(['middleware'=> ['auth']],function () {
   Route::get('/category','CategoryController@create')->name('createCat');
   Route::get('/category/{category?}','CategoryController@edit')->name('editCat');
 
+  Route::get('/tags','TagController@index')->name('tagList');
+  Route::get('/tag','TagController@create')->name('createTag');
+  Route::get('/tag/{tag?}','TagController@edit')->name('editTag');
+
+
 });
