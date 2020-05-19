@@ -10938,7 +10938,24 @@ body {
   direction: rtl;
 }
 
-.dropdown-item {
+.dropdown-item,
+.form-group,
+.card-header {
   text-align: right;
+}
+
+.table {
+  text-align: center;
+}
+
+.table-actions {
+  display: flex;
+  justify-content: space-around;
+  font-size: 1.1em;
+}
+
+.vue-html5-editor > .content {
+  text-align: right;
+  direction: rtl;
 }
 

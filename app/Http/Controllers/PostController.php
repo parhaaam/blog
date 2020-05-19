@@ -14,7 +14,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        return View('posts.index');
     }
 
     /**
@@ -24,7 +24,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+      return View('posts.create');
+
     }
 
     /**
@@ -55,9 +56,9 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post)
+    public function edit()
     {
-        //
+        return View('posts.edit');
     }
 
     /**

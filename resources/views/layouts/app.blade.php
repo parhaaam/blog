@@ -12,7 +12,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-
+    <script src="https://kit.fontawesome.com/08339b28ca.js" crossorigin="anonymous"></script>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -86,9 +86,8 @@
                       </a>
 
                       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">لیست مطالب</a>
-                        <a class="dropdown-item" href="#">ثبت مطلب</a>
-                        <a class="dropdown-item" href="#">ویرایش مطلب</a>
+                        <a class="dropdown-item" href="{{route('postsList')}}">لیست مطالب</a>
+                        <a class="dropdown-item" href="{{route('createPost')}}">ثبت مطلب</a>
                       </div>
                   </li>
                   <li class="nav-item dropdown">
@@ -99,7 +98,6 @@
                       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="#">لیست دسته‌بندی‌ها</a>
                         <a class="dropdown-item" href="#">ثبت دسته‌بندی</a>
-                        <a class="dropdown-item" href="#">ویرایش دسته‌بندی</a>
                       </div>
                   </li>
                   <li class="nav-item dropdown">
@@ -110,7 +108,6 @@
                       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="#">لیست هشتگ‌ها</a>
                         <a class="dropdown-item" href="#">ثبت هشتگ</a>
-                        <a class="dropdown-item" href="#">ویرایش هشتگ</a>
                       </div>
                   </li>
                   <li class="nav-item dropdown">
@@ -121,7 +118,6 @@
                       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="#">لیست کاربران</a>
                         <a class="dropdown-item" href="#">ثبت کاربر</a>
-                        <a class="dropdown-item" href="#">ویرایش کاربر</a>
                       </div>
                   </li>
                 </ul>

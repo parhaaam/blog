@@ -18,5 +18,11 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::group(['middleware'=> ['auth']],function () {
+  Route::get('/posts','PostController@index')->name('postsList');
+  Route::get('/post','PostController@create')->name('createPost');
+  Route::get('/post/{post?}','PostController@edit')->name('editPost');
+
+});
