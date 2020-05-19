@@ -1,8 +1,14 @@
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+// @import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url('https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v25.0.0/dist/font-face.css');
 
 // Variables
 @import 'variables';
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+body{
+  font-family: Vazir;
+  direction: rtl;
+}
