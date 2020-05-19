@@ -25,4 +25,8 @@ Route::group(['middleware'=> ['auth']],function () {
   Route::get('/post','PostController@create')->name('createPost');
   Route::get('/post/{post?}','PostController@edit')->name('editPost');
 
+  Route::get('/categories','CategoryController@index')->name('catList');
+  Route::get('/category','CategoryController@create')->name('createCat');
+  Route::get('/category/{category?}','CategoryController@edit')->name('editCat');
+
 });

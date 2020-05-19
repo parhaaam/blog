@@ -96,8 +96,8 @@
                       </a>
 
                       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">لیست دسته‌بندی‌ها</a>
-                        <a class="dropdown-item" href="#">ثبت دسته‌بندی</a>
+                        <a class="dropdown-item" href="{{route('catList')}}">لیست دسته‌بندی‌ها</a>
+                        <a class="dropdown-item" href="{{route('createCat')}}">ثبت دسته‌بندی</a>
                       </div>
                   </li>
                   <li class="nav-item dropdown">
