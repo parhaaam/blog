@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\MessageBag;
 
 class CategoryController extends Controller
 {
@@ -14,7 +15,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return View('category.index');
+        return View('category.index',[
+          'cats' => Category::paginate(15)
+        ]);
     }
 
     /**
@@ -35,7 +38,14 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+
+        $request->validate([
+          'name' => 'required|string',
+          'slug' => 'required|string|unique:categories'
+        ]);
+        $cat = Category::create($request->all());
+        return redirect()->route('catList')->withErrors(new MessageBag( ['messages' => 'دسته‌بندی با موفقیت ثبت شد']));
     }
 
     /**
@@ -55,9 +65,11 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit()
+    public function edit(Category $category)
     {
-      return View('category.edit');
+      return View('category.edit',[
+        'cat' => $category
+      ]);
 
     }
 
@@ -70,7 +82,16 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+      $request->validate([
+        'name' => ['required','string'],
+        'slug' => ['required','unique:categories,slug,'.$category->id,'string']
+      ]);
+      $category->name = $request->input('name');
+      $category->slug = $request->input('slug');
+      $category->save();
+      return redirect()->route('catList')->withErrors(new MessageBag( ['messages' => 'دسته‌بندی با موفقیت ویرایش شد']));
+
+
     }
 
     /**
@@ -81,6 +102,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return redirect()->route('catList')->withErrors(new MessageBag( ['messages' => 'دسته‌بندی با موفقیت حذف شد']));
+
     }
 }

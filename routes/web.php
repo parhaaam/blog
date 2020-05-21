@@ -27,7 +27,11 @@ Route::group(['middleware'=> ['auth']],function () {
 
   Route::get('/categories','CategoryController@index')->name('catList');
   Route::get('/category','CategoryController@create')->name('createCat');
-  Route::get('/category/{category?}','CategoryController@edit')->name('editCat');
+  Route::post('/category','CategoryController@store')->name('storeCat');
+  Route::get('/category/{category}','CategoryController@edit')->name('editCat');
+  Route::put('/category/{category}','CategoryController@update')->name('updateCat');
+  Route::delete('/category/{category}','CategoryController@destroy')->name('deleteCat');
+
 
   Route::get('/tags','TagController@index')->name('tagList');
   Route::get('/tag','TagController@create')->name('createTag');

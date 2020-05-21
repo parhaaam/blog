@@ -58,7 +58,8 @@ class UserController extends Controller
         'bio'      => $request->input('bio'),
         'photo'     => $photoPath
       ]);
-      return redirect()->route('usersList')->withErrors(new MessageBag(['messages' => 'کاربر با موفقیت ثبت شد']));
+      return redirect()->route('usersList')->withError(new MessageBag(['messages' => 'کاربر با موفقیت ثبت شد']));
+
     }
 
     /**
@@ -118,7 +119,7 @@ class UserController extends Controller
       $user->name       = $request->input('name');
       $user->bio        = $request->input('bio');
       $user->save();
-      return redirect()->route('usersList')->withErrors(new MessageBag(['messages' => 'کاربر با موفقیت ویرایش شد']));
+      return redirect()->route('usersList')->withError(new MessageBag(['messages' => 'کاربر با موفقیت ویرایش شد']));
     }
 
     /**
@@ -130,7 +131,7 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
-        return redirect()->route('usersList')->withErrors(new MessageBag(['messages' => 'کاربر با موفقیت حذف شد']));
+        return redirect()->route('usersList')->withError(new MessageBag(['messages' => 'کاربر با موفقیت حذف شد']));
 
     }
 }
