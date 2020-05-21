@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\MessageBag;
+use Storage;
+use Hash;
 
 class UserController extends Controller
 {
@@ -13,7 +17,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        return View('users.index');
+        return View('users.index',[
+          'users' => User::paginate(15)
+        ]);
     }
 
     /**
@@ -35,7 +41,24 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $request->validate([
+          'name'           => 'required|string|max:255',
+          'email'          => 'required|string|unique:users|email',
+          'password'       => 'required|string|min:8|confirmed',
+          'role'           => 'integer',
+          'photo'          => 'nullable|file|image',
+      ]);
+
+      $photoPath = Storage::putFile('profile', $request->file('photo'));
+      $user = User::create([
+        'name'      => $request->input('name'),
+        'email'     => $request->input('email'),
+        'password'  => Hash::make($request->input('password')),
+        'role'      => $request->input('role'),
+        'bio'      => $request->input('bio'),
+        'photo'     => $photoPath
+      ]);
+      return redirect()->route('usersList')->withErrors(new MessageBag(['messages' => 'کاربر با موفقیت ثبت شد']));
     }
 
     /**
@@ -55,9 +78,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit()
+    public function edit(User $user)
     {
-      return View('users.edit');
+      return View('users.edit')->with(['user' => $user]);
     }
 
     /**
@@ -67,9 +90,35 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        //
+
+      $request->validate([
+          'name'           => 'required|string|max:255',
+      ]);
+      if($request->input('password') != null){
+        $request->validate([
+            'password'       => 'required|string|min:8|confirmed',
+        ]);
+        $user->password   = Hash::make($request->input('password'));
+      }
+      if($request->input('role') != null){
+        $request->validate([
+          'role'           => 'integer',
+        ]);
+        $user->role       = $request->input('role');
+      }
+      if($request->hasFile('photo') != null){
+        $request->validate([
+          'photo'          => 'nullable|file|image',
+        ]);
+        $photoPath = Storage::putFile('profile', $request->file('photo'));
+        $user->photo      = $photoPath;
+      }
+      $user->name       = $request->input('name');
+      $user->bio        = $request->input('bio');
+      $user->save();
+      return redirect()->route('usersList')->withErrors(new MessageBag(['messages' => 'کاربر با موفقیت ویرایش شد']));
     }
 
     /**
@@ -78,8 +127,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return redirect()->route('usersList')->withErrors(new MessageBag(['messages' => 'کاربر با موفقیت حذف شد']));
+
     }
 }

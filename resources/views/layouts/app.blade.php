@@ -13,6 +13,7 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="https://kit.fontawesome.com/08339b28ca.js" crossorigin="anonymous"></script>
+    @stack('scripts')
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
