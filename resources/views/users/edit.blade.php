@@ -23,6 +23,10 @@
                             <input type="name" name="name" class="form-control" placeholder="مثلا: علی محمدی" id="name" value="{{ old('name',$user->name) }}" required>
                         </div>
                         <div class="form-group">
+                            <label for="email">آدرس ایمیل</label>
+                            <input type="email" name="email" class="form-control" placeholder="Enter email" value="{{ old('email',$user->email) }}" id="email" required>
+                        </div>
+                        <div class="form-group">
                             <label for="role">نقش</label>
                             <select class="form-control" name="role" id="role">
                                 <option value="3" @if (old('role',$user->role)==3) selected @endif>ادمین</option>

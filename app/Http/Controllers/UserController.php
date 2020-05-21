@@ -43,13 +43,17 @@ class UserController extends Controller
     {
       $request->validate([
           'name'           => 'required|string|max:255',
-          'email'          => 'required|string|unique:users|email',
+          'email'          => 'required|string|unique:users,email|email',
           'password'       => 'required|string|min:8|confirmed',
           'role'           => 'integer',
-          'photo'          => 'nullable|file|image',
       ]);
-
-      $photoPath = Storage::putFile('profile', $request->file('photo'));
+      $photoPath = null;
+      if($request->hasFile('photo')){
+        $request->validate([
+          'photo'          => 'nullable|file|image',
+        ]);
+        $photoPath = Storage::putFile('profile', $request->file('photo'));
+      }
       $user = User::create([
         'name'      => $request->input('name'),
         'email'     => $request->input('email'),
@@ -58,7 +62,7 @@ class UserController extends Controller
         'bio'      => $request->input('bio'),
         'photo'     => $photoPath
       ]);
-      return redirect()->route('usersList')->withError(new MessageBag(['messages' => 'کاربر با موفقیت ثبت شد']));
+      return redirect()->route('usersList')->withErrors(new MessageBag(['messages' => 'کاربر با موفقیت ثبت شد']));
 
     }
 
@@ -96,6 +100,7 @@ class UserController extends Controller
 
       $request->validate([
           'name'           => 'required|string|max:255',
+          'email'          => 'required|string|unique:users,email,'.$user->id.'|email',
       ]);
       if($request->input('password') != null){
         $request->validate([
@@ -117,9 +122,10 @@ class UserController extends Controller
         $user->photo      = $photoPath;
       }
       $user->name       = $request->input('name');
+      $user->email       = $request->input('email');
       $user->bio        = $request->input('bio');
       $user->save();
-      return redirect()->route('usersList')->withError(new MessageBag(['messages' => 'کاربر با موفقیت ویرایش شد']));
+      return redirect()->route('usersList')->withErrors(new MessageBag(['messages' => 'کاربر با موفقیت ویرایش شد']));
     }
 
     /**
@@ -131,7 +137,7 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
-        return redirect()->route('usersList')->withError(new MessageBag(['messages' => 'کاربر با موفقیت حذف شد']));
+        return redirect()->route('usersList')->withErrors(new MessageBag(['messages' => 'کاربر با موفقیت حذف شد']));
 
     }
 }
