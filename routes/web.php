@@ -33,5 +33,8 @@ Route::group(['middleware'=> ['auth']],function () {
   Route::get('/tag','TagController@create')->name('createTag');
   Route::get('/tag/{tag?}','TagController@edit')->name('editTag');
 
+  Route::get('/users','UserController@index')->name('usersList');
+  Route::get('/user','UserController@create')->name('createUser');
+  Route::get('/user/{user?}','UserController@edit')->name('editUser');
 
 });

@@ -116,8 +116,8 @@
                       </a>
 
                       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">لیست کاربران</a>
-                        <a class="dropdown-item" href="#">ثبت کاربر</a>
+                        <a class="dropdown-item" href="{{route('usersList')}}">لیست کاربران</a>
+                        <a class="dropdown-item" href="{{route('createUser')}}">ثبت کاربر</a>
                       </div>
                   </li>
                 </ul>
