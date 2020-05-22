@@ -199,6 +199,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        return $post->tags();
         $post->tags()->detach();
         $post->delete();
         return redirect()->route('postsList')->withErrors(new MessageBag(['messages' => 'مطلب با موفقیت حذف شد']));

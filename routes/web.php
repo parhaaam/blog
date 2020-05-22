@@ -62,12 +62,12 @@ Route::group(['middleware'=> ['auth'],'prefix' => 'admin'],function () {
   Route::delete('/tags/{tag}','TagController@destroy')->name('deleteTag')->middleware('can:delete,tag');
 
 
-  Route::get('/users','UserController@index')->name('usersList');
-  Route::get('/user','UserController@create')->name('createUser');
-  Route::post('/user','UserController@store')->name('storeUser');
-  Route::get('/user/{user}','UserController@edit')->name('editUser');
-  Route::put('/user/{user}','UserController@update')->name('updateUser');
-  Route::delete('/user/{user}','UserController@destroy')->name('deleteUser');
+  Route::get('/users','UserController@index')->name('usersList')->middleware('can:viewAny,App\User');
+  Route::get('/user','UserController@create')->name('createUser')->middleware('can:create,App\User');
+  Route::post('/user','UserController@store')->name('storeUser')->middleware('can:create,App\User');
+  Route::get('/user/{user}','UserController@edit')->name('editUser')->middleware('can:update,user');
+  Route::put('/user/{user}','UserController@update')->name('updateUser')->middleware('can:update,user');
+  Route::delete('/user/{user}','UserController@destroy')->name('deleteUser')->middleware('can:delete,user');
 
 
 });
