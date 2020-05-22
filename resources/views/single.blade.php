@@ -17,6 +17,10 @@
                       <i class="fas fa-heart"></i>
                       <span class="badge badge-danger">{{$post->likes}}</span>
                     </a>
+                    <a href="{{route('editPost',['post'=>$post])}}" class="btn btn-outline-dark btn-sm">
+                      ویرایش
+                      <i class="fas fa-edit"></i>
+                    </a>
                   </div>
             </div>
         </div>
