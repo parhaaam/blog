@@ -166,5 +166,12 @@ if (document.getElementById("html5-editor")) {
     Vue.use(VueHtml5Editor, editorOpt)
     var app = new Vue({
         el: '#app',
+        methods: {
+          EditorChange: function(evt) {
+            this.$refs.message_text.innerText = evt;
+          }
+        }
     });
+    var content = $("#html5-editor").attr("default_content")
+    $('.vue-html5-editor .content').html(content)
 }

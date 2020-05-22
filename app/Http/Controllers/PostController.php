@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use App\Category;
+use App\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\MessageBag;
+use Storage;
+
 
 class PostController extends Controller
 {
@@ -14,7 +19,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        return View('posts.index');
+        return View('posts.index',[
+          'posts' => Post::paginate(15)
+        ]);
     }
 
     /**
@@ -24,7 +31,9 @@ class PostController extends Controller
      */
     public function create()
     {
-      return View('posts.create');
+      return View('posts.create',[
+        'categories' => Category::all()
+      ]);
 
     }
 
@@ -36,7 +45,41 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $user = $request->user();
+      $request->validate([
+        'title'       => 'required|string',
+        'category'    => 'required|integer',
+        'tags'        => 'string',
+        'text'        => 'required|string',
+      ]);
+      $post = new Post();
+      if($request->hasFile('thumbnail')){
+        $request->validate([
+          'thumbnail'   => 'image',
+        ]);
+        $photoPath = Storage::putFile('public', $request->file('thumbnail'));
+        $post->thumbnail = $photoPath;
+      }
+      $post->title          = $request->input('title');
+      $post->category_id    = $request->input('category');
+      $post->text           = $request->input('text');
+      $post->user_id        = $user->id;
+      $post->status         = 0;
+
+      $post->save();
+      if($request->input('tags') != null ){
+        $tags = str_replace('،',',',$request->input('tags'));
+        $tags = explode(',',$tags);
+        foreach ($tags as $key => $tag) {
+          $selectedTag = Tag::firstOrCreate(
+            ['name' => $tag],
+            ['slug' => $tag]
+          );
+          $post->tags()->attach($selectedTag);
+        }
+      }
+      return redirect()->route('postsList')->withErrors(new MessageBag(['messages' => 'مطلب در صف بررسی و انتشار قرار گرفت']));
+
     }
 
     /**
@@ -56,9 +99,16 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit()
+    public function edit(Post $post)
     {
-        return View('posts.edit');
+
+        return View('posts.edit',[
+          'post' => $post,
+          'tags' => implode(",",$post->tags()->get()->map(function ($tag) {
+            return $tag->name;
+          })->toArray()),
+          'categories' => Category::all()
+        ]);
     }
 
     /**
@@ -70,7 +120,56 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        // return $request->all();
+        $user = $request->user();
+        $request->validate([
+          'title'       => 'required|string',
+          'category'    => 'required|integer',
+          'tags'        => 'string',
+          'text'        => 'required|string',
+        ]);
+        if($request->hasFile('thumbnail')){
+          $request->validate([
+            'thumbnail'   => 'image',
+          ]);
+          $photoPath = Storage::putFile('public', $request->file('thumbnail'));
+          $post->thumbnail = $photoPath;
+        }
+        $post->title          = $request->input('title');
+        $post->category_id    = $request->input('category');
+        $post->text           = $request->input('text');
+        $post->user_id        = $user->id;
+        $post->status         = 0;
+        $post->save();
+        if($request->input('tags') != null ){
+          $tags = str_replace('،',',',$request->input('tags'));
+          $tags = explode(',',$tags);
+          foreach ($tags as $key => $tag) {
+            $selectedTag = Tag::firstOrCreate(
+              ['name' => $tag],
+              ['slug' => $tag]
+            );
+            $post->tags()->attach($selectedTag);
+          }
+        }
+        return redirect()->route('postsList')->withErrors(new MessageBag(['messages' => 'مطلب با موفقیت ویرایش شد']));
+
+    }
+    /**
+     * Submit the Post to the blog.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Post  $post
+     * @return \Illuminate\Http\Response
+     */
+    public function submit(Request $request, Post $post)
+    {
+        // return $request->all();
+        $user = $request->user();
+        $post->status = 1;
+        $post->save();
+        return redirect()->route('postsList')->withErrors(new MessageBag(['messages' => 'مطلب با موفقیت منتشر شد']));
+
     }
 
     /**
@@ -81,6 +180,9 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        $post->tag()->detach();
+        $post->delete();
+        return redirect()->route('postsList')->withErrors(new MessageBag(['messages' => 'مطلب با موفقیت حذف شد']));
+
     }
 }

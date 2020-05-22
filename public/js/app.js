@@ -51366,8 +51366,15 @@ if (document.getElementById("html5-editor")) {
   };
   vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_html5_editor__WEBPACK_IMPORTED_MODULE_1___default.a, editorOpt);
   var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
-    el: '#app'
+    el: '#app',
+    methods: {
+      EditorChange: function EditorChange(evt) {
+        this.$refs.message_text.innerText = evt;
+      }
+    }
   });
+  var content = $("#html5-editor").attr("default_content");
+  $('.vue-html5-editor .content').html(content);
 }
 
 /***/ }),

@@ -23,7 +23,11 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['middleware'=> ['auth']],function () {
   Route::get('/posts','PostController@index')->name('postsList');
   Route::get('/post','PostController@create')->name('createPost');
-  Route::get('/post/{post?}','PostController@edit')->name('editPost');
+  Route::post('/post','PostController@store')->name('storePost');
+  Route::get('/post/{post}','PostController@edit')->name('editPost');
+  Route::put('/post/{post}','PostController@update')->name('updatePost');
+  Route::put('/post/submit/{post}','PostController@submit')->name('submitPost');
+  Route::delete('/post/{post}','PostController@destroy')->name('deletePost');
 
   Route::get('/comments','CommentController@index')->name('commentsList');
   Route::get('/comment','CommentController@create')->name('createComment');

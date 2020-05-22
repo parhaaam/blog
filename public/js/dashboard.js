@@ -11010,7 +11010,7 @@ module.exports = g;
 
 /* WEBPACK VAR INJECTION */(function(global) {global.$ = global.jQuery = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 $(document).on('click', '.delete', function (e) {
-  if (!confirm("آیا از حذف کردن این کاربر اطمینان دارید؟")) {
+  if (!confirm("آیا مطمئن هستید؟")) {
     event.preventDefault();
   }
 });
