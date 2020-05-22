@@ -116,7 +116,7 @@ class PostController extends Controller
           'post' => $post,
           'tags' => implode(",",$post->tags()->get()->map(function ($tag) {
             return $tag->name;
-          })->unique()->toArray()),
+          })->toArray()),
           'categories' => Category::all()
         ]);
     }
