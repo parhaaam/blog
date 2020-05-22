@@ -11,8 +11,13 @@
                 </a>
                   <div class="card-body text-right">
                     <h3 class="card-title"><a href="{{route('single',['post'=>$post])}}" class="text-dark">{{$post->title}}</a></h3>
-                    <h5 class="text-secondary"> <small>نوشته شده توسط {{$post->user->name}}</small>  <small>در {{$post->updated_at}}</small></h5>
+                    <h5 class="text-secondary"> <small>نوشته شده توسط {{$post->user->name}} در {{$post->updated_at}} در موضوع {{$post->category->name}}</small></h5>
                     <div class="card-text">{!!$post->text!!}</div>
+                    <div class="tags">
+                      @foreach ($post->tags()->get() as $tagKey => $tag)
+                        <a href="{{route('tagPosts',['slug'=> $tag->slug])}}">#{{$tag->name}}</a>
+                      @endforeach
+                    </div>
                   </div>
                   <div class="card-footer text-right d-flex">
                     <a href="{{route('single',['post'=>$post])}}" class="btn btn-outline-primary btn-sm mx-2">

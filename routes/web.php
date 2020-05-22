@@ -20,13 +20,14 @@ Route::group([],function () {
 
   Route::get('/', 'HomeController@index')->name('home');
   Route::get('post/{post}', 'PostController@show')->name('single');
+  Route::get('tag/{slug}', 'PostController@getPostByTag')->name('tagPosts');
   Route::post('/comment/{post}','CommentController@store')->name('storeComment');
   Route::post('/like/{post}','LikesController@store')->name('storeLike');
 
 
 
 });
-Route::group(['middleware'=> ['auth']],function () {
+Route::group(['middleware'=> ['auth'],'prefix' => 'admin'],function () {
   Route::get('/posts','PostController@index')->name('postsList');
   Route::get('/post','PostController@create')->name('createPost');
   Route::post('/post','PostController@store')->name('storePost');
@@ -55,9 +56,9 @@ Route::group(['middleware'=> ['auth']],function () {
   Route::get('/tags','TagController@index')->name('tagList');
   Route::get('/tag','TagController@create')->name('createTag');
   Route::post('/tag','TagController@store')->name('storeTag');
-  Route::get('/tag/{tag}','TagController@edit')->name('editTag');
-  Route::put('/tag/{tag}','TagController@update')->name('updateTag');
-  Route::delete('/tag/{tag}','TagController@destroy')->name('deleteTag');
+  Route::get('/tags/{tag}','TagController@edit')->name('editTag');
+  Route::put('/tags/{tag}','TagController@update')->name('updateTag');
+  Route::delete('/tags/{tag}','TagController@destroy')->name('deleteTag');
 
 
   Route::get('/users','UserController@index')->name('usersList');

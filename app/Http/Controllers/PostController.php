@@ -188,4 +188,15 @@ class PostController extends Controller
         return redirect()->route('postsList')->withErrors(new MessageBag(['messages' => 'مطلب با موفقیت حذف شد']));
 
     }
+    /**
+     * Show posts by tag.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function getPostByTag($slug)
+    {
+        return view('home',[
+          'posts' => Tag::where('slug',$slug)->first()->posts()->where('status',1)->paginate(15)
+        ]);
+    }
 }
