@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-10">
             <div class="card mb-2">
-                <img class="card-img-top img-fluid" src="{{$post->thumbnail}}" alt="Card image">
+                <img class="card-img-top img-fluid" src="{{Storage::url($post->thumbnail)}}" alt="Card image">
                   <div class="card-body text-right">
                     <h3 class="card-title">{{$post->title}}</h3>
                     <h5 class="text-secondary"> <small>نوشته شده توسط {{$post->user->name}}</small>  <small>در {{$post->updated_at}}</small></h5>

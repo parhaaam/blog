@@ -28,7 +28,7 @@
                     </div>
                     <button type="button" data-toggle="collapse" class="btn btn-outline-primary" data-target="#thumbnail_preview">نمایش تصویر</button>
                     <div id="thumbnail_preview" class="collapse">
-                      <img src="{{$post->thumbnail}}" alt="">
+                      <img src="{{Storage::url($post->thumbnail)}}" alt="">
                     </div>
                     <div class="row">
                         <div class="col">
