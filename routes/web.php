@@ -37,11 +37,10 @@ Route::group(['middleware'=> ['auth'],'prefix' => 'admin'],function () {
   Route::put('/posts/submit/{post}','PostController@submit')->name('submitPost')->middleware('can:submit,post');
   Route::delete('/post/{post}','PostController@destroy')->name('deletePost')->middleware('can:delete,post');
 
-  Route::get('/comments','CommentController@index')->name('commentsList');
-  Route::get('/comment','CommentController@create')->name('createComment');
-  Route::put('/comment/{comment}','CommentController@submit')->name('submitComment');
-  Route::put('/comment/spam/{comment}','CommentController@spam')->name('spamComment');
-  Route::delete('/comment/{comment}','CommentController@destroy')->name('deleteComment');
+  Route::get('/comments','CommentController@index')->name('commentsList')->middleware('can:viewAny,App\Comment');
+  Route::put('/comment/{comment}','CommentController@submit')->name('submitComment')->middleware('can:update,comment');
+  Route::put('/comment/spam/{comment}','CommentController@spam')->name('spamComment')->middleware('can:spam,comment');
+  Route::delete('/comment/{comment}','CommentController@destroy')->name('deleteComment')->middleware('can:delete,comment');
 
 
 
