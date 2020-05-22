@@ -20,6 +20,11 @@
                     <h3 class="card-title">{{$post->title}}</h3>
                     <h5 class="text-secondary"> <small>نوشته شده توسط {{$post->user->name}}</small> <small>در {{$post->updated_at}}</small></h5>
                     <div class="card-text">{!!$post->text!!}</div>
+                    <div class="tags">
+                      @foreach ($post->tags()->get() as $tagKey => $tag)
+                        <a href="{{route('tagPosts',['slug'=> $tag->slug])}}">#{{$tag->name}}</a>
+                      @endforeach
+                    </div>
                 </div>
                 <div class="card-footer text-right d-flex">
                   <form class="" action="{{route('storeLike',['post'=>$post])}}" method="post">
