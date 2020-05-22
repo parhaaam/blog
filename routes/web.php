@@ -46,12 +46,12 @@ Route::group(['middleware'=> ['auth'],'prefix' => 'admin'],function () {
 
 
 
-  Route::get('/categories','CategoryController@index')->name('catList');
-  Route::get('/category','CategoryController@create')->name('createCat');
-  Route::post('/category','CategoryController@store')->name('storeCat');
-  Route::get('/category/{category}','CategoryController@edit')->name('editCat');
-  Route::put('/category/{category}','CategoryController@update')->name('updateCat');
-  Route::delete('/category/{category}','CategoryController@destroy')->name('deleteCat');
+  Route::get('/categories','CategoryController@index')->name('catList')->middleware('can:viewAny,App\Category');
+  Route::get('/category','CategoryController@create')->name('createCat')->middleware('can:create,App\Category');
+  Route::post('/category','CategoryController@store')->name('storeCat')->middleware('can:create,App\Category');
+  Route::get('/category/{category}','CategoryController@edit')->name('editCat')->middleware('can:update,category');
+  Route::put('/category/{category}','CategoryController@update')->name('updateCat')->middleware('can:update,category');
+  Route::delete('/category/{category}','CategoryController@destroy')->name('deleteCat')->middleware('can:delete,category');
 
 
   Route::get('/tags','TagController@index')->name('tagList');
