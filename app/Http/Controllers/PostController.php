@@ -8,6 +8,8 @@ use App\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\MessageBag;
 use Storage;
+use Illuminate\Support\Facades\DB;
+
 
 
 class PostController extends Controller
@@ -75,6 +77,11 @@ class PostController extends Controller
             ['name' => $tag],
             ['slug' => $tag]
           );
+
+          $isAttached = DB::table('post_tag')->where('post_id', '=', $post->id)->where('tag_id', '=', $selectedTag->id)->count();
+          if($isAttached > 0){
+            continue;
+          }
           $post->tags()->attach($selectedTag);
         }
       }
@@ -152,6 +159,10 @@ class PostController extends Controller
               ['name' => $tag],
               ['slug' => $tag]
             );
+            $isAttached = DB::table('post_tag')->where('post_id', '=', $post->id)->where('tag_id', '=', $selectedTag->id)->count();
+            if($isAttached > 0){
+              continue;
+            }
             $post->tags()->attach($selectedTag);
           }
         }
