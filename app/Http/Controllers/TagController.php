@@ -97,8 +97,9 @@ class TagController extends Controller
      */
     public function destroy(Tag $tag)
     {
+      $tag->post()->detach();
       $tag->delete();
-      return redirect()->route('tagList')->withErrors(new MessageBag( ['messages' => 'هشتگ با موفقیت ویرایش شد']));
+      return redirect()->route('tagList')->withErrors(new MessageBag( ['messages' => 'هشتگ با موفقیت حذف شد']));
 
         //
 
