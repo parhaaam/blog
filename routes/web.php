@@ -21,6 +21,8 @@ Route::group([],function () {
   Route::get('/', 'HomeController@index')->name('home');
   Route::get('post/{post}', 'PostController@show')->name('single');
   Route::post('/comment/{post}','CommentController@store')->name('storeComment');
+  Route::post('/like/{post}','LikesController@store')->name('storeLike');
+
 
 
 });

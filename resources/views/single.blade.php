@@ -21,13 +21,16 @@
                     <h5 class="text-secondary"> <small>نوشته شده توسط {{$post->user->name}}</small> <small>در {{$post->updated_at}}</small></h5>
                     <div class="card-text">{!!$post->text!!}</div>
                 </div>
-                <div class="card-footer text-right">
-                    <a href="#" class="btn btn-outline-danger btn-sm">
+                <div class="card-footer text-right d-flex">
+                  <form class="" action="{{route('storeLike',['post'=>$post])}}" method="post">
+                    @csrf
+                    <button type="submit" class="btn btn-outline-danger btn-sm">
                         پسندیدم
                         <i class="fas fa-heart"></i>
-                        <span class="badge badge-danger">{{$post->likes}}</span>
-                    </a>
-                    <a href="{{route('editPost',['post'=>$post])}}" class="btn btn-outline-dark btn-sm">
+                        <span class="badge badge-danger">{{$post->likesCount}}</span>
+                    </button>
+                  </form>
+                    <a href="{{route('editPost',['post'=>$post])}}" class="btn btn-outline-dark btn-sm mx-2">
                         ویرایش
                         <i class="fas fa-edit"></i>
                     </a>

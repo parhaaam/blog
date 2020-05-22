@@ -10,6 +10,7 @@ class Post extends Model
     protected $fillable =[
       'title','text','status','user_id','category_id','likes','thumbnail'
     ];
+    protected $append = ['likesCount'];
     public function user()
     {
       return $this->belongsTo(User::class);
@@ -26,5 +27,14 @@ class Post extends Model
     {
       return $this->hasMany(Comment::class);
     }
+    public function likes()
+    {
+      return $this->hasMany(Likes::class);
+    }
+    public function getLikesCountAttribute()
+    {
+      return $this->likes()->get()->count();
+    }
+
 
 }
