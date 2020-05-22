@@ -73,7 +73,7 @@
                 </div>
             </div>
         </nav>
-        @if (Auth::check())
+        @can('see-menu')
 
         <nav class="navbar navbar-expand-md bg-dark navbar-dark ">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -81,59 +81,75 @@
             </button>
             <div class="collapse navbar-collapse justify-content-center" id="collapsibleNavbar">
                 <ul class="navbar-nav">
-                  <li class="nav-item dropdown">
-                      <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                          مطالب
-                      </a>
+                    @can ('viewAny',App\Post::class)
 
-                      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{route('postsList')}}">لیست مطالب</a>
-                        <a class="dropdown-item" href="{{route('createPost')}}">ثبت مطلب</a>
-                      </div>
-                  </li>
-                  <li class="nav-item dropdown">
-                      <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                        نظرات
-                      </a>
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            مطالب
+                        </a>
 
-                      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{route('commentsList')}}">لیست نظرات</a>
-                      </div>
-                  </li>
-                  <li class="nav-item dropdown">
-                      <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                        دسته‌بندی
-                      </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{route('postsList')}}">لیست مطالب</a>
+                            <a class="dropdown-item" href="{{route('createPost')}}">ثبت مطلب</a>
+                        </div>
+                    </li>
+                    @endcan
 
-                      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{route('catList')}}">لیست دسته‌بندی‌ها</a>
-                        <a class="dropdown-item" href="{{route('createCat')}}">ثبت دسته‌بندی</a>
-                      </div>
-                  </li>
-                  <li class="nav-item dropdown">
-                      <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                        هشتگ‌ها
-                      </a>
+                    @can ('viewAny',App\Comment::class)
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            نظرات
+                        </a>
 
-                      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{route('tagList')}}">لیست هشتگ‌ها</a>
-                        <a class="dropdown-item" href="{{route('createTag')}}">ثبت هشتگ</a>
-                      </div>
-                  </li>
-                  <li class="nav-item dropdown">
-                      <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                        کاربران
-                      </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{route('commentsList')}}">لیست نظرات</a>
+                        </div>
+                    </li>
+                    @endcan
 
-                      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{route('usersList')}}">لیست کاربران</a>
-                        <a class="dropdown-item" href="{{route('createUser')}}">ثبت کاربر</a>
-                      </div>
-                  </li>
+
+                    @can ('viewAny',App\Category::class)
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            دسته‌بندی
+                        </a>
+
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{route('catList')}}">لیست دسته‌بندی‌ها</a>
+                            <a class="dropdown-item" href="{{route('createCat')}}">ثبت دسته‌بندی</a>
+                        </div>
+                    </li>
+                    @endcan
+
+                    @can ('viewAny',App\Tag::class)
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            هشتگ‌ها
+                        </a>
+
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{route('tagList')}}">لیست هشتگ‌ها</a>
+                            <a class="dropdown-item" href="{{route('createTag')}}">ثبت هشتگ</a>
+                        </div>
+                    </li>
+                  @endcan
+
+                  @can ('viewAny',App\User::class)    
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            کاربران
+                        </a>
+
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{route('usersList')}}">لیست کاربران</a>
+                            <a class="dropdown-item" href="{{route('createUser')}}">ثبت کاربر</a>
+                        </div>
+                    </li>
+                  @endcan
                 </ul>
             </div>
         </nav>
-        @endif
+        @endcan
 
         <main class="py-4">
             @yield('content')

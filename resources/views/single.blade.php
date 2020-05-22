@@ -15,7 +15,7 @@
           @endforeach
           @endif
             <div class="card mb-2">
-                <img class="card-img-top img-fluid" src="{{Storage::url($post->thumbnail)}}" alt="Card image">
+                <img class="card-img-top img-fluid" src="{{$post->thumbnail ==null ? asset('no image.jpg') : Storage::url($post->thumbnail)}}" alt="Card image">
                 <div class="card-body text-right">
                     <h3 class="card-title">{{$post->title}}</h3>
                     <h5 class="text-secondary"> <small>نوشته شده توسط {{$post->user->name}} در {{$post->updated_at}} در موضوع <a href="{{route('postByCat',['slug' => $post->category->slug])}}">{{$post->category->name}}</a></small></h5>

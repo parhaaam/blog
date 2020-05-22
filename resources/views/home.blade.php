@@ -7,7 +7,7 @@
           @foreach ($posts as $key => $post)
             <div class="card mb-2">
                 <a href="{{route('single',['post'=>$post])}}">
-                  <img class="card-img-top img-fluid" src="{{Storage::url($post->thumbnail)}}" alt="Card image">
+                  <img class="card-img-top img-fluid" src="{{$post->thumbnail ==null ? asset('no image.jpg') : Storage::url($post->thumbnail)}}" alt="Card image">
                 </a>
                   <div class="card-body text-right">
                     <h3 class="card-title"><a href="{{route('single',['post'=>$post])}}" class="text-dark">{{$post->title}}</a></h3>
