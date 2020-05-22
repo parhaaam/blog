@@ -52,7 +52,7 @@ class UserController extends Controller
         $request->validate([
           'photo'          => 'nullable|file|image',
         ]);
-        $photoPath = Storage::putFile('profile', $request->file('photo'));
+        $photoPath = Storage::putFile('public', $request->file('photo'));
       }
       $user = User::create([
         'name'      => $request->input('name'),
@@ -118,7 +118,7 @@ class UserController extends Controller
         $request->validate([
           'photo'          => 'nullable|file|image',
         ]);
-        $photoPath = Storage::putFile('profile', $request->file('photo'));
+        $photoPath = Storage::putFile('public', $request->file('photo'));
         $user->photo      = $photoPath;
       }
       $user->name       = $request->input('name');

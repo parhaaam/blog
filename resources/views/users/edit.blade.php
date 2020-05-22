@@ -15,6 +15,8 @@
                     </div>
                     @endforeach
                     @endif
+
+                    <img class="card-img-top rounded-circle mx-auto d-block  w-25 p-3" src="{{Storage::url($user->photo)}}" alt="Card image">
                     <form action="{{route('updateUser',['user'=>$user])}}" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="_method" value="PUT">
                         @csrf
