@@ -19,7 +19,11 @@ class PostPolicy
      */
     public function viewAny(User $user)
     {
-        //
+      if($user->role > 0){
+        return Response::allow();
+      }else {
+        return Response::deny('شما مجوز لازم جهت دیدن این برگه‌را ندارید');
+      }
     }
 
     /**
@@ -31,7 +35,11 @@ class PostPolicy
      */
     public function view(User $user, Post $post)
     {
-        //
+      if(($user->role > 0 && $user->id == $post->user->id )|| $user->role > 1){
+        return Response::allow();
+      }else {
+        return Response::deny('شما مجوز لازم جهت نمایش این برگه‌را ندارید');
+      }
     }
 
     /**
@@ -45,7 +53,7 @@ class PostPolicy
       if($user->role > 0){
         return Response::allow();
       }else {
-        return Response::deny('ما مجوز لازم جهت ثبت پست را ندارید');
+        return Response::deny('شما مجوز لازم جهت ثبت پست را ندارید');
       }
     }
 
@@ -58,7 +66,7 @@ class PostPolicy
      */
     public function update(User $user, Post $post)
     {
-        if($user->id == $post->user->id || $user->role > 1){
+        if(($user->role > 0 && $user->id == $post->user->id )|| $user->role > 1){
           return Response::allow();
         }else {
           return Response::deny('شما مجوز لازم جهت ویرایش این پست را ندارید');
@@ -74,7 +82,7 @@ class PostPolicy
      */
     public function delete(User $user, Post $post)
     {
-      if($user->id == $post->user->id || $user->role > 1){
+      if(($user->role > 0 && $user->id == $post->user->id )|| $user->role > 1){
         return Response::allow();
       }else {
         return Response::deny('شما مجوز لازم جهت حذف این پست را ندارید');
@@ -94,7 +102,7 @@ class PostPolicy
     }
 
     /**
-     * Determine whether the user can permanently submit the model.
+     * Determine whether the user can permanently delete the model.
      *
      * @param  \App\User  $user
      * @param  \App\Post  $post
@@ -105,7 +113,7 @@ class PostPolicy
       if($user->role > 1){
         return Response::allow();
       }else {
-        return Response::deny('شما مجوز لازم جهت انتشار این پست را ندارید');
+        return Response::deny('شما مجوز لازم جهت انتشار را ندارید');
       }
     }
 }

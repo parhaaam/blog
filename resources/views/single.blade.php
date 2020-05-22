@@ -34,9 +34,11 @@
                         <span class="badge badge-pill badge-danger">{{$post->likesCount}}</span>
                     </button>
                   </form>
+                  @can('update',$post)
                     <a href="{{route('editPost',['post'=>$post])}}" class="btn btn-outline-dark btn-sm mx-2">
                         ویرایش
                     </a>
+                  @endcan
                 </div>
             </div>
             @foreach ($comments as $key => $comment)

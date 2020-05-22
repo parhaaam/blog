@@ -19,10 +19,15 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if($request->user()->role > 1){
+          $posts = Post::orderBy('created_at','DESC')->paginate(15);
+        }else {
+          $posts = Post::where('user_id',$request->user()->id)->orderBy('created_at','DESC')->paginate(15);
+        }
         return View('posts.index',[
-          'posts' => Post::orderBy('created_at','DESC')->paginate(15)
+          'posts' => $posts
         ]);
     }
 
@@ -194,7 +199,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        $post->tag()->detach();
+        $post->tags()->detach();
         $post->delete();
         return redirect()->route('postsList')->withErrors(new MessageBag(['messages' => 'مطلب با موفقیت حذف شد']));
 

@@ -34,10 +34,11 @@
                       ثبت نظر
                     <span class="badge badge-pill badge-info text-white">{{$post->commentsCount}}</span>
                     </a>
-
+                    @can('update',$post)
                       <a href="{{route('editPost',['post'=>$post])}}" class="btn btn-outline-dark btn-sm mx-2">
                           ویرایش
                       </a>
+                    @endcan
                   </div>
             </div>
           @endforeach
