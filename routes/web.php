@@ -30,12 +30,12 @@ Route::group([],function () {
 });
 Route::group(['middleware'=> ['auth'],'prefix' => 'admin'],function () {
   Route::get('/posts','PostController@index')->name('postsList');
-  Route::get('/post','PostController@create')->name('createPost');
-  Route::post('/post','PostController@store')->name('storePost');
-  Route::get('/posts/{post}','PostController@edit')->name('editPost');
-  Route::put('/posts/{post}','PostController@update')->name('updatePost');
-  Route::put('/posts/submit/{post}','PostController@submit')->name('submitPost');
-  Route::delete('/post/{post}','PostController@destroy')->name('deletePost');
+  Route::get('/post','PostController@create')->name('createPost')->middleware('can:create');
+  Route::post('/post','PostController@store')->name('storePost')->middleware('can:create');
+  Route::get('/posts/{post}','PostController@edit')->name('editPost')->middleware('can:update,post');
+  Route::put('/posts/{post}','PostController@update')->name('updatePost')->middleware('can:update,post');
+  Route::put('/posts/submit/{post}','PostController@submit')->name('submitPost')->middleware('can:submit,post');
+  Route::delete('/post/{post}','PostController@destroy')->name('deletePost')->middleware('can:delete,post');
 
   Route::get('/comments','CommentController@index')->name('commentsList');
   Route::get('/comment','CommentController@create')->name('createComment');
