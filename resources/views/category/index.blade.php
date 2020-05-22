@@ -45,6 +45,7 @@
                   </tbody>
                 </table>
             </div>
+            {{$cats->links()}}
         </div>
     </div>
 </div>
