@@ -22,7 +22,7 @@ class PostController extends Controller
     public function index()
     {
         return View('posts.index',[
-          'posts' => Post::orderBy('updated_at','DESC')->paginate(15)
+          'posts' => Post::orderBy('created_at','DESC')->paginate(15)
         ]);
     }
 

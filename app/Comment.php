@@ -25,4 +25,12 @@ class Comment extends Model
         $date = \Morilog\Jalali\CalendarUtils::toJalali($date[0],$date[1],$date[2]);
         return $date = $time." - ".implode('/', $date);
     }
+    public function GetCreatedAtAttribute($value)
+    {
+        $date = date('Y/m/d/h:s',strtotime($value));
+        $date = explode('/',$date);
+        $time = $date[3];
+        $date = \Morilog\Jalali\CalendarUtils::toJalali($date[0],$date[1],$date[2]);
+        return $date = $time." - ".implode('/', $date);
+    }
 }
