@@ -17,19 +17,21 @@
                   <div class="card-footer text-right d-flex">
                     <a href="{{route('single',['post'=>$post])}}" class="btn btn-outline-primary btn-sm mx-2">
                       ادامه‌ی مطلب
-                    <i class="fas fa-chevron-circle-left"></i>
                     </a>
                     <form class="" action="{{route('storeLike',['post'=>$post])}}" method="post">
                       @csrf
                       <button type="submit" class="btn btn-outline-danger btn-sm">
                           پسندیدم
-                          <i class="fas fa-heart"></i>
-                          <span class="badge badge-danger">{{$post->likesCount}}</span>
+                          <span class="badge badge-pill badge-danger">{{$post->likesCount}}</span>
                       </button>
                     </form>
+                    <a href="{{route('single',['post'=>$post])}}#commentSection" class="btn btn-outline-info btn-sm mx-2">
+                      ثبت نظر
+                    <span class="badge badge-pill badge-info text-white">{{$post->commentsCount}}</span>
+                    </a>
+
                       <a href="{{route('editPost',['post'=>$post])}}" class="btn btn-outline-dark btn-sm mx-2">
                           ویرایش
-                          <i class="fas fa-edit"></i>
                       </a>
                   </div>
             </div>

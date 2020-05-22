@@ -15,7 +15,7 @@ class HomeController extends Controller
     public function index()
     {
         return view('home',[
-          'posts' => Post::where('status',1)->paginate(10)
+          'posts' => Post::where('status',1)->orderBy('updated_at','DESC')->paginate(10)
         ]);
     }
 }

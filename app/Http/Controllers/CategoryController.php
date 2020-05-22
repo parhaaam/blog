@@ -16,7 +16,7 @@ class CategoryController extends Controller
     public function index()
     {
         return View('category.index',[
-          'cats' => Category::paginate(15)
+          'cats' => Category::orderBy('updated_at','DESC')->paginate(15)
         ]);
     }
 

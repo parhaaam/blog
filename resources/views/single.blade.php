@@ -26,13 +26,11 @@
                     @csrf
                     <button type="submit" class="btn btn-outline-danger btn-sm">
                         پسندیدم
-                        <i class="fas fa-heart"></i>
-                        <span class="badge badge-danger">{{$post->likesCount}}</span>
+                        <span class="badge badge-pill badge-danger">{{$post->likesCount}}</span>
                     </button>
                   </form>
                     <a href="{{route('editPost',['post'=>$post])}}" class="btn btn-outline-dark btn-sm mx-2">
                         ویرایش
-                        <i class="fas fa-edit"></i>
                     </a>
                 </div>
             </div>
@@ -44,7 +42,7 @@
                   </div>
               </div>
             @endforeach
-            <div class="card mb-2">
+            <div id="commentSection" class="card mb-2">
                 <form class="" action="{{route('storeComment',['post'=>$post])}}" method="post">
                   @csrf
                     <div class="card-body text-right">
