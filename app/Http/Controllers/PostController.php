@@ -91,7 +91,8 @@ class PostController extends Controller
     public function show(Post $post)
     {
         return view('single',[
-          'post' => $post
+          'post'      => $post,
+          'comments'  => $post->comments()->where('status',2)->get()
         ]);
     }
 

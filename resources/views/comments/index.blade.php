@@ -20,8 +20,10 @@
                 <table class="table">
                   <thead class="">
                     <tr>
-                      <th>دسته‌بندی</th>
-                      <th>نامک</th>
+                      <th>مطلب</th>
+                      <th>نظر</th>
+                      <th>نویسنده</th>
+                      <th>وضعیت</th>
                       <th>عملیات</th>
                     </tr>
                   </thead>
@@ -33,12 +35,29 @@
                         <td><a href="mailto::{{$comment->user_email}}"></a>{{$comment->user_name}}</td>
                         <td>@if($comment->status ==2) تایید شده @elseif ($comment->status ==1) اسپم @else منتظر تایید @endif</td>
                         <td class="table-actions">
-                          <a href="{{route('editCat',['category' => $cat])}}" class="btn btn-outline-primary"><i class="fas fa-pen"></i> ویرایش</a>
-                          <form class="" action="{{route('deleteCat',['category' => $cat])}}" method="post">
+                          {{-- <a href="{{route('editCat',['category' => $cat])}}" class="btn btn-outline-primary"><i class="fas fa-pen"></i> ویرایش</a> --}}
+                          <form class="" action="{{route('submitComment',['comment' => $comment])}}" method="post">
+                            <input type="hidden" name="_method" value="PUT">
+                            @csrf
+                            <button type="submit" class="btn btn-outline-success delete">
+                               انتشار
+                               <i class="far fa-paper-plane"></i>
+                            </button>
+                          </form>
+                          <form class="" action="{{route('spamComment',['comment' => $comment])}}" method="post">
+                            <input type="hidden" name="_method" value="PUT">
+                            @csrf
+                            <button type="submit" class="btn btn-outline-dark delete">
+                              اسپم
+                              <i class="far fa-trash-alt"></i>
+                            </button>
+                          </form>
+                          <form class="" action="{{route('deleteComment',['comment' => $comment])}}" method="post">
                             <input type="hidden" name="_method" value="DELETE">
                             @csrf
                             <button type="submit" class="btn btn-outline-danger delete">
-                              <i class="fas fa-trash"></i>حذف
+                               حذف
+                               <i class="fas fa-trash"></i>
                             </button>
                           </form>
                         </td>
@@ -46,6 +65,7 @@
                     @endforeach
                   </tbody>
                 </table>
+              {{$comments->links()}}
             </div>
         </div>
     </div>

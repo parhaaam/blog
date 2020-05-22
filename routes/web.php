@@ -20,6 +20,7 @@ Route::group([],function () {
 
   Route::get('/', 'HomeController@index')->name('home');
   Route::get('post/{post}', 'PostController@show')->name('single');
+  Route::post('/comment/{post}','CommentController@store')->name('storeComment');
 
 
 });
@@ -34,7 +35,11 @@ Route::group(['middleware'=> ['auth']],function () {
 
   Route::get('/comments','CommentController@index')->name('commentsList');
   Route::get('/comment','CommentController@create')->name('createComment');
-  Route::get('/comment/{comment}','CommentController@edit')->name('editComment');
+  Route::put('/comment/{comment}','CommentController@submit')->name('submitComment');
+  Route::put('/comment/spam/{comment}','CommentController@spam')->name('spamComment');
+  Route::delete('/comment/{comment}','CommentController@destroy')->name('deleteComment');
+
+
 
 
   Route::get('/categories','CategoryController@index')->name('catList');
