@@ -90,7 +90,9 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        return view('single',[
+          'post' => $post
+        ]);
     }
 
     /**

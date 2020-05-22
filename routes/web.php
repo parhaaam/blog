@@ -13,20 +13,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 Auth::routes();
-Route::get('/home', 'HomeController@index')->name('home');
+Route::group([],function () {
 
+  Route::get('/', 'HomeController@index')->name('home');
+  Route::get('post/{post}', 'PostController@show')->name('single');
+
+
+});
 Route::group(['middleware'=> ['auth']],function () {
   Route::get('/posts','PostController@index')->name('postsList');
   Route::get('/post','PostController@create')->name('createPost');
   Route::post('/post','PostController@store')->name('storePost');
-  Route::get('/post/{post}','PostController@edit')->name('editPost');
-  Route::put('/post/{post}','PostController@update')->name('updatePost');
-  Route::put('/post/submit/{post}','PostController@submit')->name('submitPost');
+  Route::get('/posts/{post}','PostController@edit')->name('editPost');
+  Route::put('/posts/{post}','PostController@update')->name('updatePost');
+  Route::put('/posts/submit/{post}','PostController@submit')->name('submitPost');
   Route::delete('/post/{post}','PostController@destroy')->name('deletePost');
 
   Route::get('/comments','CommentController@index')->name('commentsList');
