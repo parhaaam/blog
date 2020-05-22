@@ -35,7 +35,11 @@ Route::group(['middleware'=> ['auth']],function () {
 
   Route::get('/tags','TagController@index')->name('tagList');
   Route::get('/tag','TagController@create')->name('createTag');
-  Route::get('/tag/{tag?}','TagController@edit')->name('editTag');
+  Route::post('/tag','TagController@store')->name('storeTag');
+  Route::get('/tag/{tag}','TagController@edit')->name('editTag');
+  Route::put('/tag/{tag}','TagController@update')->name('updateTag');
+  Route::delete('/tag/{tag}','TagController@destroy')->name('deleteTag');
+
 
   Route::get('/users','UserController@index')->name('usersList');
   Route::get('/user','UserController@create')->name('createUser');

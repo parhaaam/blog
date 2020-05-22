@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\MessageBag;
 
 class TagController extends Controller
 {
@@ -14,7 +15,9 @@ class TagController extends Controller
      */
     public function index()
     {
-        return View('tag.index');
+        return View('tag.index',[
+          'tags' => Tag::paginate(15)
+        ]);
     }
 
     /**
@@ -35,7 +38,12 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $request->validate([
+        'name' => 'required|string',
+        'slug' => 'required|string|unique:tags'
+      ]);
+      $tag = Tag::create($request->all());
+      return redirect()->route('tagList')->withErrors(new MessageBag( ['messages' => 'هشتگ شما با موفقیت ثبت شد']));
     }
 
     /**
@@ -54,9 +62,11 @@ class TagController extends Controller
      * @param  \App\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function edit()
+    public function edit(Tag $tag)
     {
-      return View('tag.create');
+      return View('tag.edit',[
+        'tag' => $tag
+      ]);
     }
 
     /**
@@ -68,7 +78,15 @@ class TagController extends Controller
      */
     public function update(Request $request, Tag $tag)
     {
-        //
+      $request->validate([
+        'name' => ['required','string'],
+        'slug' => ['required','unique:tags,slug,'.$tag->id,'string']
+      ]);
+      $tag->name = $request->input('name');
+      $tag->slug = $request->input('slug');
+      $tag->save();
+      return redirect()->route('tagList')->withErrors(new MessageBag( ['messages' => 'هشتگ با موفقیت ویرایش شد']));
+
     }
 
     /**
@@ -79,6 +97,10 @@ class TagController extends Controller
      */
     public function destroy(Tag $tag)
     {
+      $tag->delete();
+      return redirect()->route('tagList')->withErrors(new MessageBag( ['messages' => 'هشتگ با موفقیت ویرایش شد']));
+
         //
+
     }
 }
