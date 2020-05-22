@@ -199,4 +199,15 @@ class PostController extends Controller
           'posts' => Tag::where('slug',$slug)->first()->posts()->where('status',1)->paginate(15)
         ]);
     }
+    /**
+     * Show posts by Category.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function getPostByCategory($slug)
+    {
+        return view('home',[
+          'posts' => Category::where('slug',$slug)->first()->post()->where('status',1)->paginate(15)
+        ]);
+    }
 }

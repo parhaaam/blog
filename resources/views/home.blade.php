@@ -11,7 +11,7 @@
                 </a>
                   <div class="card-body text-right">
                     <h3 class="card-title"><a href="{{route('single',['post'=>$post])}}" class="text-dark">{{$post->title}}</a></h3>
-                    <h5 class="text-secondary"> <small>نوشته شده توسط {{$post->user->name}} در {{$post->updated_at}} در موضوع {{$post->category->name}}</small></h5>
+                    <h5 class="text-secondary"> <small>نوشته شده توسط {{$post->user->name}} در {{$post->updated_at}} در موضوع <a href="{{route('postByCat',['slug' => $post->category->slug])}}">{{$post->category->name}}</a></small></h5>
                     <div class="card-text">{!!$post->text!!}</div>
                     <div class="tags">
                       @foreach ($post->tags()->get() as $tagKey => $tag)

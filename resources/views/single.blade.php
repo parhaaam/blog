@@ -18,7 +18,7 @@
                 <img class="card-img-top img-fluid" src="{{Storage::url($post->thumbnail)}}" alt="Card image">
                 <div class="card-body text-right">
                     <h3 class="card-title">{{$post->title}}</h3>
-                    <h5 class="text-secondary"> <small>نوشته شده توسط {{$post->user->name}}</small> <small>در {{$post->updated_at}}</small></h5>
+                    <h5 class="text-secondary"> <small>نوشته شده توسط {{$post->user->name}} در {{$post->updated_at}} در موضوع <a href="{{route('postByCat',['slug' => $post->category->slug])}}">{{$post->category->name}}</a></small></h5>
                     <div class="card-text">{!!$post->text!!}</div>
                     <div class="tags">
                       @foreach ($post->tags()->get() as $tagKey => $tag)

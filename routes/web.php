@@ -21,6 +21,7 @@ Route::group([],function () {
   Route::get('/', 'HomeController@index')->name('home');
   Route::get('post/{post}', 'PostController@show')->name('single');
   Route::get('tag/{slug}', 'PostController@getPostByTag')->name('tagPosts');
+  Route::get('category/{slug}', 'PostController@getPostByCategory')->name('postByCat');
   Route::post('/comment/{post}','CommentController@store')->name('storeComment');
   Route::post('/like/{post}','LikesController@store')->name('storeLike');
 
