@@ -153,7 +153,6 @@ class PostController extends Controller
         $post->title          = $request->input('title');
         $post->category_id    = $request->input('category');
         $post->text           = $request->input('text');
-        $post->user_id        = $user->id;
         $post->status         = 0;
         $post->save();
         if($request->input('tags') != null ){
@@ -199,8 +198,10 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        return $post->tags();
         $post->tags()->detach();
+        $post->comments()->get()->map(function ($comment) {
+          $comment->delete();
+        });
         $post->delete();
         return redirect()->route('postsList')->withErrors(new MessageBag(['messages' => 'مطلب با موفقیت حذف شد']));
 

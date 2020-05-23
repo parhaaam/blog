@@ -31,7 +31,7 @@ Route::group([],function () {
 Route::group(['middleware'=> ['auth'],'prefix' => 'admin'],function () {
   Route::get('/posts','PostController@index')->name('postsList')->middleware('can:viewAny,App\Post');
   Route::get('/post','PostController@create')->name('createPost')->middleware('can:create,App\Post');
-  Route::post('/post','PostController@store')->name('storePost')->middleware('can:create');
+  Route::post('/post','PostController@store')->name('storePost')->middleware('can:create,App\Post');
   Route::get('/posts/{post}','PostController@edit')->name('editPost')->middleware('can:update,post');
   Route::put('/posts/{post}','PostController@update')->name('updatePost')->middleware('can:update,post');
   Route::put('/posts/submit/{post}','PostController@submit')->name('submitPost')->middleware('can:submit,post');

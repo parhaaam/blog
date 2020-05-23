@@ -44,6 +44,7 @@
                         </td>
                         <td class="table-actions">
                           <a href="{{route('editPost',['post' => $post])}}" class="btn btn-outline-primary"><i class="fas fa-pen"></i> ویرایش</a>
+                          @can('submit',$post)
                           <form class="" action="{{route('submitPost',['post' => $post])}}" method="post">
                             <input type="hidden" name="_method" value="PUT">
                             @csrf
@@ -51,6 +52,7 @@
                               <i class="far fa-paper-plane"></i>انتشار
                             </button>
                           </form>
+                        @endcan
                           <form class="" action="{{route('deletePost',['post' => $post])}}" method="post">
                             <input type="hidden" name="_method" value="DELETE">
                             @csrf
