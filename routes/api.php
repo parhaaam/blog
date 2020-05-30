@@ -18,13 +18,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group(['middleware'=> ['auth'],'prefix' => 'admin'],function () {
-  Route::get('/categories','CategoryController@index')->name('catList')->middleware('can:viewAny,App\Category');
-  Route::get('/category','CategoryController@create')->name('createCat')->middleware('can:create,App\Category');
-  Route::post('/category','CategoryController@store')->name('storeCat')->middleware('can:create,App\Category');
-  Route::get('/category/{category}','CategoryController@edit')->name('editCat')->middleware('can:update,category');
-  Route::put('/category/{category}','CategoryController@update')->name('updateCat')->middleware('can:update,category');
-  Route::delete('/category/{category}','CategoryController@destroy')->name('deleteCat')->middleware('can:delete,category');
+Route::group(['middleware'=> ['auth:api']],function () {
+  Route::get('/categories','API\CategoryController@index')->name('catList')->middleware('can:viewAny,App\Category');
+  Route::get('/category/{category}','API\CategoryController@show')->name('catShow')->middleware('can:viewAny,App\Category');
+  Route::post('/category','API\CategoryController@store')->name('storeCat')->middleware('can:create,App\Category');
+  Route::put('/category/{category}','API\CategoryController@update')->name('updateCat')->middleware('can:update,category');
+  Route::delete('/category/{category}','API\CategoryController@destroy')->name('deleteCat')->middleware('can:delete,category');
 });
 
 Route::get('password-grant-auth', function (Request $request) {
