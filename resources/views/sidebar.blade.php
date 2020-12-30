@@ -2,10 +2,9 @@
   <div class="card">
       <img class="card-img-top rounded-circle img-fluid" src="https://www.w3schools.com/bootstrap4/img_avatar1.png" alt="Card image">
         <div class="card-body text-center">
-          <h2 class="card-title font-weight-light">پرهام پرنیان</h2>
+          <h2 class="card-title font-weight-light">USER</h2>
           <p class="text-justify card-text">
-            برنامه نویس بک‌اند <br>
-            اینجا از روزمرگی‌هام می نویسم
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem earum, laboriosam voluptatum temporibus velit, omnis magnam accusamus tempore nostrum iste praesentium, sit officia reprehenderit et excepturi soluta maxime totam beatae!
           </p>
         </div>
         <div class="card-footer text-center">
