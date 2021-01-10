@@ -33,7 +33,7 @@ Route::group([],function () {
 
 
 });
-Route::group(['middleware'=> ['auth:api'],'prefix' => 'admin'],function () {
+Route::group(['middleware'=> ['auth:api'],'prefix' => 'admin' , 'namespace' => 'API' ],function () {
   Route::get('/posts','PostController@index')->name('postsList')->middleware('can:viewAny,App\Post');
   Route::get('/post','PostController@create')->name('createPost')->middleware('can:create,App\Post');
   Route::post('/post','PostController@store')->name('storePost')->middleware('can:create,App\Post');
