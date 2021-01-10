@@ -41,7 +41,7 @@ class Post extends Model
     }
     public function GetUpdatedAtAttribute($value)
     {
-        $date = date('Y/m/d/h:s',strtotime($value));
+        $date = date('Y/m/d/h:i:s',strtotime($value));
         $date = explode('/',$date);
         $time = $date[3];
         $date = \Morilog\Jalali\CalendarUtils::toJalali($date[0],$date[1],$date[2]);
@@ -49,7 +49,7 @@ class Post extends Model
     }
     public function GetCreatedAtAttribute($value)
     {
-        $date = date('Y/m/d/h:s',strtotime($value));
+        $date = date('Y/m/d/h:i:s',strtotime($value));
         $date = explode('/',$date);
         $time = $date[3];
         $date = \Morilog\Jalali\CalendarUtils::toJalali($date[0],$date[1],$date[2]);
